@@ -30,6 +30,17 @@ export class LoginService {
       return userList
   }
 
+  async signUp(email: string, password: string) {
+    return createUserWithEmailAndPassword(this.auth, email, password)
+      .then((userCredential) => {
+        console.log("sikeres signup");
+        return true;
+      })
+      .catch((error) => {
+        console.log("something went wrong: ", error);
+      });
+  }
+
   async signIn(email: string, password: string) {
     return signInWithEmailAndPassword(this.auth, email, password)
       .then((userCredential) => {
@@ -41,7 +52,7 @@ export class LoginService {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode)
+        console.log(errorCode);
         console.log(errorMessage);
         return false;
       });

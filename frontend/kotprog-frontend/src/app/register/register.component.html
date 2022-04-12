@@ -1,5 +1,6 @@
 <div class="loginroot">
     <h1 id="title">Warehouse Coordinator</h1>
+    <h2>Register a new account</h2>
 
     <h3> {{ email }} </h3>
     <h3> {{ password }} </h3>
@@ -12,7 +13,11 @@
     <div class="input">
         <input type="password" [(ngModel)]="password" />
     </div>
-    <button (click)="login(email, password)">Login</button>
-    <a routerLink="/register">Create an account</a>
-    <div *ngIf="loginError" style="color: red;">Error while signing in</div>
+    <label for="passwordInput2">Password again:</label>
+    <div class="input">
+        <input type="password" [(ngModel)]="password2" />
+    </div>
+    <button (click)="register()">Register</button>
+    <a routerLink="/login">Log in with an existing account</a>
+    <div *ngIf="registerError" style="color: red;">{{ errorMessage }}</div>
 </div>
