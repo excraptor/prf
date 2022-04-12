@@ -1,0 +1,21 @@
+<h1>Welcome to Warehouse Manager</h1>
+
+
+
+<h2>Items</h2>
+<button (click)="getAllItems()">Refresh items</button>
+<ul>
+    <li *ngFor="let i of items"> 
+        <div>
+            Name: {{ i['name'] }}
+        </div>
+        <div>
+            Cost: {{ i['cost'] }}
+        </div>
+        <div>
+            Available: {{ i['quantity'] }} pcs
+        </div>
+    </li>
+</ul>
+
+<button (click)="signOut()">Sign out</button>

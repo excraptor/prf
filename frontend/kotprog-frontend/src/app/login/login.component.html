@@ -1,0 +1,19 @@
+<div class="loginroot">
+    <h1 id="title">Warehouse Coordinator</h1>
+
+    <h3> {{ email }} </h3>
+    <h3> {{ password }} </h3>
+
+    <label for="emailInput">Email:</label>
+    <div class="input" id="emailInput">
+        <input type="email" [(ngModel)]="email" />
+    </div>
+    <label for="passwordInput">Password:</label>
+    <div class="input">
+        <input type="password" [(ngModel)]="password" />
+    </div>
+    <button (click)="login(email, password)">Login</button>
+
+    <button (click)="getUserSignedIn()">Get user signed in</button>
+    <div *ngIf="loginError" style="color: red;">Error while signing in</div>
+</div>
