@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { initializeApp } from 'firebase/app';
-import { addDoc, collection, getDocs, getFirestore } from 'firebase/firestore/lite';
+import { addDoc, collection, deleteDoc, doc, getDocs, getFirestore } from 'firebase/firestore';
 import { LoginService } from './login.service';
 
 @Injectable({
@@ -40,6 +40,15 @@ export class StorageService {
       console.log(`${doc.id} => ${doc.data()}`);
     });
     return querySnapshot;
+  }
+
+  async getAdmins() {
+    const querySnapshot = await getDocs(collection(this.db, 'admin'));
+    return querySnapshot;
+  }
+
+  async deleteItem(item: any) {
+    await deleteDoc(doc(this.db, 'item', item['id']));
   }
 
 }

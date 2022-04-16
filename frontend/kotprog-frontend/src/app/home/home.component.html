@@ -1,21 +1,56 @@
 <h1>Welcome to Warehouse Manager</h1>
 
 
+<div *ngIf="admin">
+    <h2>Add a new item</h2>
+    <div >
+        <div>
+            <input type="text" placeholder="Name" [(ngModel)]="name">
+        </div>
+        <div>
+            <input type="text" placeholder="Price" [(ngModel)]="cost">
+        </div>
+        <div>
+            <input type="text" placeholder="Quantity" [(ngModel)]="quantity">
+        </div>
+        <button (click)="addItem()">Add item</button>
+    </div>
+</div>
+
 
 <h2>Items</h2>
 <button (click)="getAllItems()">Refresh items</button>
-<ul>
-    <li *ngFor="let i of items"> 
-        <div>
-            Name: {{ i['name'] }}
-        </div>
-        <div>
-            Cost: {{ i['cost'] }}
-        </div>
-        <div>
-            Available: {{ i['quantity'] }} pcs
-        </div>
-    </li>
-</ul>
+<table>
+    
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            Quantity
+        </th>
+        <th>
+
+        </th>
+    </tr>
+    <tr *ngIf="items.length == 0">Loading...</tr>
+    <tr *ngFor="let i of items"> 
+        <td>
+            {{ i['name'] }}
+        </td>
+        <td>
+            {{ i['cost'] }}
+        </td>
+        <td>
+            {{ i['quantity'] }}
+        </td>
+        <td>
+            <button *ngIf="admin" (click)="deleteItem(i)">Delete</button>
+        </td>
+    </tr>
+</table>
 
 <button (click)="signOut()">Sign out</button>

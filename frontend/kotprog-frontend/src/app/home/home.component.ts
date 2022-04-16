@@ -15,17 +15,33 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllItems();
+    this.setAdmin()
   }
 
   items: DocumentData[] = []
+  admin = false;
+  name = "";
+  cost: number | undefined;
+  quantity: number | undefined;
+
 
   async getAllItems() {
     this.items = [];
     const allItems = await this.storage.getAllItems();
     allItems.forEach((doc) => this.items.push(doc.data()))
   }
+
   getUserSignedIn() {
     return this.auth.getUserSignedIn();
+  }
+
+  async setAdmin() {
+    const admins = await this.storage.getAdmins()
+    admins.forEach((doc) => {
+      if(doc.data()['email'] == this.getUserSignedIn()?.email) {
+        this.admin = true;
+      }
+    })
   }
 
   async signOut() {
@@ -37,4 +53,25 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  addItem() {
+    const item = {
+      "name": this.name,
+      "cost": this.cost,
+      "quantity": this.quantity
+    };
+
+    this.storage.addItem(item);
+    this.getAllItems();
+    this.clear()
+  }
+
+  clear() {
+    this.name = "";
+    this.cost = undefined;
+    this.quantity = undefined;
+  }
+
+  deleteItem(item: any) {
+    this.storage.deleteItem(item);
+  }
 }
