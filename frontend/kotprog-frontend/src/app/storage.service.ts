@@ -1,7 +1,9 @@
+import { isNgTemplate } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { initializeApp } from 'firebase/app';
 import { addDoc, collection, deleteDoc, doc, getDocs, getFirestore } from 'firebase/firestore';
 import { LoginService } from './login.service';
+import { Item } from './Item';
 
 @Injectable({
   providedIn: 'root'
@@ -36,10 +38,18 @@ export class StorageService {
   async getAllItems() {
     const querySnapshot = await getDocs(collection(this.db, 'item'));
     // TODO return them
+    let res: Item[] = [];
     querySnapshot.forEach((doc) => {
       console.log(`${doc.id} => ${doc.data()}`);
+      const item: Item = {
+        id: doc.id,
+        name: doc.data()['name'],
+        cost: doc.data()['cost'],
+        quantity: doc.data()['quantity']
+      };
+      res.push(item)
     });
-    return querySnapshot;
+    return res;
   }
 
   async getAdmins() {
@@ -47,8 +57,9 @@ export class StorageService {
     return querySnapshot;
   }
 
-  async deleteItem(item: any) {
-    await deleteDoc(doc(this.db, 'item', item['id']));
+  async deleteItem(id: string) {
+    console.log(id);
+    await deleteDoc(doc(this.db, 'item', id));
   }
 
 }

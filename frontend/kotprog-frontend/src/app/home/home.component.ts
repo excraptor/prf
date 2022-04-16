@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { QuerySnapshot, DocumentData } from 'firebase/firestore/lite';
+import { Item } from '../Item';
 import { LoginService } from '../login.service';
 import { StorageService } from '../storage.service';
 
@@ -18,17 +19,17 @@ export class HomeComponent implements OnInit {
     this.setAdmin()
   }
 
-  items: DocumentData[] = []
+  items: Item[] = []
   admin = false;
   name = "";
   cost: number | undefined;
   quantity: number | undefined;
+  cart: Item[] = []
+  isShowCart = false;
 
 
   async getAllItems() {
-    this.items = [];
-    const allItems = await this.storage.getAllItems();
-    allItems.forEach((doc) => this.items.push(doc.data()))
+    this.items = await this.storage.getAllItems();
   }
 
   getUserSignedIn() {
@@ -62,7 +63,7 @@ export class HomeComponent implements OnInit {
 
     this.storage.addItem(item);
     this.getAllItems();
-    this.clear()
+    this.clear();
   }
 
   clear() {
@@ -71,7 +72,16 @@ export class HomeComponent implements OnInit {
     this.quantity = undefined;
   }
 
-  deleteItem(item: any) {
-    this.storage.deleteItem(item);
+  deleteItem(id: string) {
+    this.storage.deleteItem(id);
+    this.getAllItems();
+  }
+
+  addToCart(item: Item, quantity: number) {
+    this.cart.push(item);
+  }
+
+  showCart() {
+    this.isShowCart = !this.isShowCart;
   }
 }

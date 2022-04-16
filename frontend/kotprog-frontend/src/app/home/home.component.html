@@ -1,6 +1,8 @@
 <h1>Welcome to Warehouse Manager</h1>
 
 
+
+
 <div *ngIf="admin">
     <h2>Add a new item</h2>
     <div >
@@ -45,12 +47,25 @@
             {{ i['cost'] }}
         </td>
         <td>
-            {{ i['quantity'] }}
+            <input type="text" [placeholder]="'max: ' + i['quantity']" name="quantityInput">
         </td>
         <td>
-            <button *ngIf="admin" (click)="deleteItem(i)">Delete</button>
+            <button *ngIf="admin" (click)="deleteItem(i['id'])">Delete</button>
+        </td>
+        <td>
+            <button *ngIf="!admin" (click)="addToCart(i, 10)">Add to cart</button>
         </td>
     </tr>
 </table>
 
 <button (click)="signOut()">Sign out</button>
+
+
+<button (click)="showCart()">Show your cart</button>
+<div *ngIf="isShowCart">
+    <div>
+        <app-cart
+        [cart]="cart"
+        ></app-cart>
+    </div>
+</div>

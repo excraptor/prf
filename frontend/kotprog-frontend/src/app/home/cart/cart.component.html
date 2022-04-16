@@ -1,0 +1,36 @@
+<h2>Your cart</h2>
+
+<div *ngIf="cart.length > 0">
+    <table>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Cost
+            </th>
+            <th>
+                Quantity
+            </th>
+        </tr>
+        <tr>
+            <tr *ngFor="let i of cart"> 
+                <td>
+                    {{ i['name'] }}
+                </td>
+                <td>
+                    {{ i['cost'] }}
+                </td>
+                <td>
+                    {{ i['quantity'] }}
+                </td>
+        </tr>
+    </table>
+    
+    <button (click)="checkout()">
+        Checkout
+    </button>
+</div>
+<div *ngIf="cart.length == 0">
+    Your cart is empty!
+</div>
