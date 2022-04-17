@@ -47,13 +47,13 @@
             {{ i['cost'] }}
         </td>
         <td>
-            <input type="text" [placeholder]="'max: ' + i['quantity']" name="quantityInput">
+            <input type="text" [placeholder]="'max: ' + i['availableQuantity']" name="quantityInput" [(ngModel)]="i['quantity']">
         </td>
         <td>
             <button *ngIf="admin" (click)="deleteItem(i['id'])">Delete</button>
         </td>
         <td>
-            <button *ngIf="!admin" (click)="addToCart(i, 10)">Add to cart</button>
+            <button *ngIf="!admin" (click)="addToCart(i, i['quantity'])">Add to cart</button>
         </td>
     </tr>
 </table>

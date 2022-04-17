@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { QuerySnapshot, DocumentData } from 'firebase/firestore/lite';
 import { Item } from '../Item';
 import { LoginService } from '../login.service';
 import { StorageService } from '../storage.service';
@@ -26,6 +25,8 @@ export class HomeComponent implements OnInit {
   quantity: number | undefined;
   cart: Item[] = []
   isShowCart = false;
+  defaultErrorMessage = "Something went wrong"
+  errorMessage = this.defaultErrorMessage
 
 
   async getAllItems() {
@@ -77,8 +78,19 @@ export class HomeComponent implements OnInit {
     this.getAllItems();
   }
 
-  addToCart(item: Item, quantity: number) {
-    this.cart.push(item);
+  addToCart(item: Item, quantity: number | undefined) {
+    if(quantity !== undefined) {
+      if(item.availableQuantity >= quantity) {
+        item.availableQuantity -= quantity;
+      } else {
+        this.errorMessage = `There are only ${item.quantity} items!`;
+        return;
+      }
+      const cartItem: Item = {...item};
+      cartItem.quantity = quantity;
+      this.cart.push(cartItem);
+    }
+    
   }
 
   showCart() {

@@ -45,7 +45,7 @@ export class StorageService {
         id: doc.id,
         name: doc.data()['name'],
         cost: doc.data()['cost'],
-        quantity: doc.data()['quantity']
+        availableQuantity: doc.data()['quantity']
       };
       res.push(item)
     });

@@ -19,4 +19,9 @@ export class CartComponent implements OnInit {
     
   }
 
+  removeFromCart(item: Item) {
+    this.cart = this.cart.filter((i) => i !== item);
+    //rakja vissza a berakott mennyiséget a szülőbe
+  }
+
 }
