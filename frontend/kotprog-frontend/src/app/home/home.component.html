@@ -31,8 +31,11 @@
         <th>
             Price
         </th>
-        <th>
+        <th *ngIf="!admin">
             Quantity
+        </th>
+        <th *ngIf="admin">
+            Available Quantity
         </th>
         <th>
 
@@ -46,11 +49,17 @@
         <td>
             {{ i['cost'] }}
         </td>
-        <td>
+        <td *ngIf="!admin">
             <input type="text" [placeholder]="'max: ' + i['availableQuantity']" name="quantityInput" [(ngModel)]="i['quantity']">
+        </td>
+        <td *ngIf="admin">
+            <input type="text" [placeholder]="'available: ' + i['availableQuantity']" name="quantityInput" [(ngModel)]="i['availableQuantity']">
         </td>
         <td>
             <button *ngIf="admin" (click)="deleteItem(i['id'])">Delete</button>
+        </td>
+        <td>
+            <button *ngIf="admin" (click)="updateItem(i)">Update</button>
         </td>
         <td>
             <button *ngIf="!admin" (click)="addToCart(i, i['quantity'])">Add to cart</button>

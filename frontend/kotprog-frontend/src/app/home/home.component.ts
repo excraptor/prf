@@ -113,4 +113,8 @@ export class HomeComponent implements OnInit {
   getItemsInCartLength() {
     return this.cart.getItemsLength();
   }
+
+  updateItem(item: Item) {
+    this.storage.updateItem(item);
+  }
 }
