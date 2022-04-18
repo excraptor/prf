@@ -22,4 +22,16 @@ export class CartService {
   getItemsLength() {
     return this.items.length;
   }
+
+  totalCost() {
+    let cost: number = 0;
+    this.items.forEach((i) => {
+      cost += +i.cost;
+    });
+    return cost;
+  }
+
+  clearCart() {
+    this.items = [];
+  }
 }

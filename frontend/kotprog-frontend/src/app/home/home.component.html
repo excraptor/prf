@@ -61,7 +61,7 @@
 <button (click)="signOut()">Sign out</button>
 
 
-<button (click)="showCart()">Show your cart</button>
+<button (click)="showCart()">Show your cart ({{ getItemsInCartLength() }})</button>
 <div *ngIf="isShowCart">
     <div>
         <app-cart (removedItem)="removedItemFromCart($event)"></app-cart>

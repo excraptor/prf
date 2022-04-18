@@ -109,4 +109,8 @@ export class HomeComponent implements OnInit {
       }
     })
   }
+
+  getItemsInCartLength() {
+    return this.cart.getItemsLength();
+  }
 }

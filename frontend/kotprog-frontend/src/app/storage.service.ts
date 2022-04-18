@@ -1,7 +1,7 @@
 import { isNgTemplate } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { initializeApp } from 'firebase/app';
-import { addDoc, collection, deleteDoc, doc, getDocs, getFirestore } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, getDocs, getFirestore, updateDoc } from 'firebase/firestore';
 import { LoginService } from './login.service';
 import { Item } from './Item';
 
@@ -45,7 +45,7 @@ export class StorageService {
         id: doc.id,
         name: doc.data()['name'],
         cost: doc.data()['cost'],
-        availableQuantity: doc.data()['quantity']
+        availableQuantity: doc.data()['availableQuantity'] ?? doc.data()['quantity']
       };
       res.push(item)
     });
@@ -60,6 +60,20 @@ export class StorageService {
   async deleteItem(id: string) {
     console.log(id);
     await deleteDoc(doc(this.db, 'item', id));
+  }
+
+  updateItems(items: Item[]) {
+    items.forEach(async i => {
+      await this.updateItem(i);
+    })
+  }
+
+  async updateItem(i: Item) {
+    const docRef = doc(this.db, 'item', i.id);
+    console.log(i);
+    await updateDoc(docRef, {
+      availableQuantity:  i.availableQuantity,  
+    });
   }
 
 }
