@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { CartService } from '../cart.service';
 import { Item } from '../Item';
 import { LoginService } from '../login.service';
 import { StorageService } from '../storage.service';
@@ -11,7 +12,10 @@ import { StorageService } from '../storage.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private storage: StorageService, private auth: LoginService, private router: Router) { }
+  constructor(private storage: StorageService, 
+              private auth: LoginService, 
+              private router: Router,
+              private cart: CartService) { }
 
   ngOnInit(): void {
     this.getAllItems();
@@ -23,10 +27,11 @@ export class HomeComponent implements OnInit {
   name = "";
   cost: number | undefined;
   quantity: number | undefined;
-  cart: Item[] = []
   isShowCart = false;
-  defaultErrorMessage = "Something went wrong"
-  errorMessage = this.defaultErrorMessage
+  defaultErrorMessage = "Something went wrong";
+  errorMessage = this.defaultErrorMessage;
+  
+
 
 
   async getAllItems() {
@@ -88,12 +93,20 @@ export class HomeComponent implements OnInit {
       }
       const cartItem: Item = {...item};
       cartItem.quantity = quantity;
-      this.cart.push(cartItem);
+      this.cart.addToItems(cartItem);
     }
     
   }
 
   showCart() {
     this.isShowCart = !this.isShowCart;
+  }
+
+  removedItemFromCart(item: Item) {
+    this.items.map((i) => {
+      if(i.id === item.id) {
+        i.availableQuantity += +item.quantity!;
+      }
+    })
   }
 }

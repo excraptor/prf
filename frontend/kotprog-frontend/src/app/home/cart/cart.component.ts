@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Output, OnInit, EventEmitter } from '@angular/core';
+import { CartService } from 'src/app/cart.service';
 import { Item } from 'src/app/Item';
 
 @Component({
@@ -8,20 +9,37 @@ import { Item } from 'src/app/Item';
 })
 export class CartComponent implements OnInit {
 
-  constructor() { }
+  constructor(private cart: CartService) { }
 
   ngOnInit(): void {
   }
 
-  @Input() cart: Item[] = []
+  @Output() removedItem: EventEmitter<Item> = new EventEmitter()
+
 
   checkout() {
     
   }
 
   removeFromCart(item: Item) {
-    this.cart = this.cart.filter((i) => i !== item);
+    //this.cart = this.cart.filter((i) => i !== item);
+    const removedQuantity = this.cart.removeFromItems(item);
     //rakja vissza a berakott mennyiséget a szülőbe
+    const ri: Item = {
+      id: item.id,
+      name: item.name,
+      cost: item.cost,
+      quantity: removedQuantity,
+      availableQuantity: item.availableQuantity
+    }
+    this.removedItem.emit(item);
+  }
+
+  getItemsLength() {
+    return this.cart.getItemsLength();
+  }
+  getItems() {
+    return this.cart.items;
   }
 
 }

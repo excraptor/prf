@@ -64,8 +64,6 @@
 <button (click)="showCart()">Show your cart</button>
 <div *ngIf="isShowCart">
     <div>
-        <app-cart
-        [cart]="cart"
-        ></app-cart>
+        <app-cart (removedItem)="removedItemFromCart($event)"></app-cart>
     </div>
 </div>

@@ -1,6 +1,6 @@
 <h2>Your cart</h2>
 
-<div *ngIf="cart.length > 0">
+<div *ngIf="getItemsLength() > 0">
     <table>
         <tr>
             <th>
@@ -14,7 +14,7 @@
             </th>
         </tr>
         <tr>
-            <tr *ngFor="let i of cart"> 
+            <tr *ngFor="let i of getItems()"> 
                 <td>
                     {{ i['name'] }}
                 </td>
@@ -34,6 +34,6 @@
         Checkout
     </button>
 </div>
-<div *ngIf="cart.length == 0">
+<div *ngIf="getItemsLength() == 0">
     Your cart is empty!
 </div>
