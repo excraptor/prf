@@ -26,7 +26,7 @@ export class CartService {
   totalCost() {
     let cost: number = 0;
     this.items.forEach((i) => {
-      cost += +i.cost;
+      cost += (+i.cost*i.quantity!);
     });
     return cost;
   }

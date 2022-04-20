@@ -20,10 +20,13 @@ lehessen beírni mennyit
     akarunk venni                   működik?
 checkolja az elérhető mennyiséget   működik?
 vonja le a megvett mennyiséget      működik?
-vásárlás gomb                       -
-kosárból eltávolítás gomb           -
-mennyiség módosítása inputfield     -
-vásárlásra új oldalra átirányítás   -
-okézásra cart törlése               -
+vásárlás gomb                       pipa
+kosárból eltávolítás gomb           pipa
+mennyiség módosítása inputfield     meh
+vásárlásra új oldalra átirányítás   pipa
+okézásra cart törlése               pipa
 cart metnése db-be                  ???
-adja össze hogy mennyibe kerül      -
+adja össze hogy mennyibe kerül      pipa
+
+firebase rules                      -
+rendes doksi                        -
